@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSG 랜더스 응원가 재생기</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="team-header">
+    <div class="logo-badge">SSG</div>
+    <div class="header-text">
+      <h1>SSG 랜더스 응원가 재생기</h1>
+      <p>LANDERS CHEER SONG PLAYER</p>
+    </div>
+  </header>
+
+  <section class="now-playing-section">
+    <div class="pitcher-card">
+      <span class="label">선발투수</span>
+      <span class="player-name" id="pitcherName">미등록</span>
+      <button id="playPitcher" disabled>▶ 등장곡 재생</button>
+    </div>
+
+    <div class="current-batter-card">
+      <div class="batter-main">
+        <div class="order-badge" id="currentOrderNum">1</div>
+        <div class="batter-info">
+          <span class="label">현재 타자</span>
+          <h2 id="currentBatterName">미등록</h2>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="prevBtn">◀ 이전</button>
+        <button id="playBtn" class="play-btn" disabled>▶ 재생</button>
+        <button id="entranceBtn" class="entrance-btn" hidden>▶ 등장곡</button>
+        <button id="nextBtn">다음 ▶</button>
+      </div>
+      <div class="variant-switch" id="variantSwitch" hidden></div>
+    </div>
+    <audio id="audioPlayer"></audio>
+  </section>
+
+  <section class="lineup-list">
+    <h3>타순</h3>
+    <ol id="lineupList"></ol>
+  </section>
+
+  <section class="registration">
+    <h3>선수 &amp; 응원가 배정</h3>
+    <div class="reg-grid" id="regGrid"></div>
+  </section>
+
+  <section class="github-section">
+    <h3>GitHub 연동</h3>
+    <div class="form-card">
+      <p class="hint">
+        새 응원가는 이 저장소(<code>github.com/yongsanexp/ssg-cheer-songs</code>)에 직접 커밋돼요.
+        업로드하려면 <b>Contents: Read and write</b> 권한의 GitHub 개인 액세스 토큰이 필요합니다.
+        토큰은 이 브라우저에만 저장되고 외부로 전송되지 않아요.
+      </p>
+      <div class="token-row">
+        <input type="password" id="ghToken" placeholder="GitHub 개인 액세스 토큰 붙여넣기" />
+        <button id="ghTokenSave" class="btn-inline">저장</button>
+      </div>
+      <p class="hint" id="ghTokenStatus"></p>
+    </div>
+  </section>
+
+  <section class="upload-section">
+    <h3>응원가 등록</h3>
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="upName">선수 이름</label>
+          <input type="text" id="upName" list="knownPlayers" placeholder="예: 최정" />
+          <datalist id="knownPlayers"></datalist>
+        </div>
+        <div class="form-field">
+          <label for="upType">종류</label>
+          <select id="upType">
+            <option value="cheer">응원가</option>
+            <option value="entrance">등장곡</option>
+          </select>
+        </div>
+        <div class="form-field" id="upVariantField">
+          <label for="upVariant">버전 번호</label>
+          <input type="number" id="upVariant" min="1" value="1" />
+        </div>
+        <div class="form-field">
+          <label for="upFile">음원 파일</label>
+          <input type="file" id="upFile" accept="audio/*" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button id="uploadBtn" class="btn-inline primary">응원가 등록</button>
+        <span class="hint" id="uploadProgress"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="song-manage-section">
+    <div class="section-title-row">
+      <h3>등록된 응원가</h3>
+      <button id="refreshBtn" class="btn-inline">새로고침</button>
+    </div>
+    <div id="songList"></div>
+  </section>
+
+  <footer>SSG Landers 팬을 위한 비공식 응원가 재생기</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
